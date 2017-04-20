@@ -10,3 +10,9 @@ pip install requests
 pip install telepot
 pip install beautifulsoup4
 ```
+## Execution
+Open and edit file customKeyboard.py with your Telegram TOKEN BOT
+Save and close file.
+```
+python main.py
+```
