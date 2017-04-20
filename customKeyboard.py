@@ -2,16 +2,31 @@
 import sys
 import time
 import telepot
+import datetime
 import webbrowser
 from parserHTML import *
 from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton
 
 url = "http://openlab.dibris.unige.it/index.php/lego"
 
+def createLog(msg):
+    datemsg = datetime.datetime.fromtimestamp(
+            int(msg['date'])
+            ).strftime('%Y-%m')
+    monthLog = datetime.datetime.now().strftime('%Y-%m')
+    report = datetime.datetime.fromtimestamp(
+            int(msg['date'])
+            ).strftime('%Y-%m-%d %H:%M:%S'),msg['message_id'],msg['from'],msg['text']
+    report = str(report)
+    if monthLog!=datemsg:
+        monthLog = datemsg
+    out_file = open( "logs/" + monthLog + ".txt" ,"a")
+    out_file.write(report + "\n")
+    out_file.close()
 
 def on_chat_message(msg):
     content_type, chat_type, chat_id = telepot.glance(msg)
-    print('Chat Message:', content_type, chat_type, chat_id)
+    createLog(msg)
     if content_type == 'text':
         if (msg['text'] == '/help' or msg['text'] == '/start'):
             bot.sendMessage(chat_id, 'Come posso aiutarti?',
@@ -32,5 +47,6 @@ def on_chat_message(msg):
     elif content_type == 'photo':
         bot.sendMessage(chat_id,'Mi hai inviato una foto, ancora non posso leggerla')
 
-bot = telepot.Bot('Insert TOKEN')
+bot = telepot.Bot('TOKEN INSERT')
+
 
