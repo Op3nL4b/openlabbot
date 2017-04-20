@@ -1,0 +1,1 @@
+('2017-04-20 18:20:36', 449, {u'username': u'Rootx86', u'first_name': u'Filippo', u'last_name': u'Lpd', u'id': 21750573}, u'Eventi')
